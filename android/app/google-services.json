@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "690382979772",
+    "project_id": "frentalk-f17f4",
+    "storage_bucket": "frentalk-f17f4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:690382979772:android:74a00b3d578822cc9b06b9",
+        "android_client_info": {
+          "package_name": "com.example.frentalk_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUvRxH7riVfVywxSdz8a7Eh4r4GpF39jE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
