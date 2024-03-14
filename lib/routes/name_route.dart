@@ -4,4 +4,5 @@ class RouteNames {
   static const register = '/register';
   static const reset = '/reset';
   static const addUser = '/addUser';
+  static const editUser = '/editUser';
 }

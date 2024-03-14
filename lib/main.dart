@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:frentalk_app/global_controllers/auth_controller.dart';
 import 'package:frentalk_app/pages/add_page/controllers/add_controller.dart';
+import 'package:frentalk_app/pages/edit_page/controllers/edit_controller.dart';
 import 'package:frentalk_app/pages/home_page/controllers/home_controller.dart';
 import 'package:frentalk_app/pages/login_page.dart/controllers/login_controller.dart';
 import 'package:frentalk_app/pages/register_page/controllers/register_controller.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
   final resetC = Get.put(ResetController());
   final addUserC = Get.put(AddUserController());
   final homeC = Get.put(HomeController());
+  final editC = Get.put(EditUserController());
 
   @override
   Widget build(BuildContext context) {

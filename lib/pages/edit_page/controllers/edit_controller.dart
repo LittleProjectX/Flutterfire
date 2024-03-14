@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:frentalk_app/utils/dialog_dua.dart';
 import 'package:get/get.dart';
 import 'package:frentalk_app/utils/dialog_satu.dart';
 
-class AddUserController extends GetxController {
+class EditUserController extends GetxController {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   late TextEditingController nameC;
@@ -14,7 +15,7 @@ class AddUserController extends GetxController {
   void onInit() {
     nameC = TextEditingController();
     telpC = TextEditingController();
-    statusC = TextEditingController(text: 'Hi there! i\'m using FrenTalk');
+    statusC = TextEditingController();
     super.onInit();
   }
 
@@ -26,28 +27,36 @@ class AddUserController extends GetxController {
     super.onClose();
   }
 
-  void addUser(String name, String telp, String status) async {
+  Future<DocumentSnapshot<Object?>> getData(String id) async {
     CollectionReference users = FirebaseFirestore.instance.collection('Users');
-    DateTime dateNow = DateTime.now();
+    return users.doc(id).get();
+  }
+
+  void editUser(String name, String telp, String status, String id) async {
+    CollectionReference users = FirebaseFirestore.instance.collection('Users');
     if (name.isNotEmpty && telp.isNotEmpty && status.isNotEmpty) {
       try {
-        await users.add({
-          'name': name,
-          'telp': telp,
-          'status': status,
-          'date': dateNow,
-        });
-        Get.dialog(CustomDialogSatu(
-          title: 'PEMBERITAHUAN',
-          content: 'Data user berhasil ditambahkan',
-          textConfirm: 'OK',
-          onConfirm: () {
-            nameC.clear();
-            telpC.clear();
-            Get.back();
-            Get.back();
-          },
-        ));
+        Get.dialog(CustomDialogDua(
+            title: 'PEMBERITAHUAN',
+            content: 'Apakah anda yakin ingin mengubah data?',
+            textConfirm: 'YA',
+            onConfirm: () async {
+              await users.doc(id).update({
+                'name': name,
+                'telp': telp,
+                'status': status,
+              });
+              Get.back();
+              Get.back();
+            },
+            textCancle: 'Tidak',
+            onCancle: () {
+              nameC.clear();
+              telpC.clear();
+              statusC.clear();
+              Get.back();
+              Get.back();
+            }));
       } catch (e) {
         Get.dialog(CustomDialogSatu(
           title: 'PEMBERITAHUAN',
