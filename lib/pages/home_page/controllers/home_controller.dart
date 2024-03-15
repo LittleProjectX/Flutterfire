@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:frentalk_app/global_controllers/auth_controller.dart';
 import 'package:frentalk_app/utils/dialog_dua.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class HomeController extends GetxController {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final authC = Get.find<AuthController>();
 
   // Future<QuerySnapshot<Object?>> getData() {
   //   CollectionReference users = FirebaseFirestore.instance.collection('Users');
@@ -11,10 +14,17 @@ class HomeController extends GetxController {
   // }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> streamUser() {
+    String? uId = '';
+    final box = GetStorage();
+    if (box.read('userId') != null) {
+      var data = box.read('userId');
+      uId = data;
+    }
+
     final Stream<QuerySnapshot<Map<String, dynamic>>> usersStream =
         FirebaseFirestore.instance
             .collection('Users')
-            .orderBy('date')
+            .where('userId', isEqualTo: uId)
             .snapshots();
     return usersStream;
   }

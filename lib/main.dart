@@ -4,6 +4,7 @@ import 'package:frentalk_app/global_controllers/auth_controller.dart';
 import 'package:frentalk_app/pages/add_page/controllers/add_controller.dart';
 import 'package:frentalk_app/pages/edit_page/controllers/edit_controller.dart';
 import 'package:frentalk_app/pages/home_page/controllers/home_controller.dart';
+import 'package:frentalk_app/pages/image_page/controllers/image_controller.dart';
 import 'package:frentalk_app/pages/login_page.dart/controllers/login_controller.dart';
 import 'package:frentalk_app/pages/register_page/controllers/register_controller.dart';
 import 'package:frentalk_app/pages/reset_page/controllers/reset_controller.dart';
@@ -13,9 +14,11 @@ import 'package:frentalk_app/utils/loading_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'firebase_options.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -31,6 +34,7 @@ class MyApp extends StatelessWidget {
   final addUserC = Get.put(AddUserController());
   final homeC = Get.put(HomeController());
   final editC = Get.put(EditUserController());
+  final imageC = Get.put(ImageController());
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +46,7 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
                 textTheme: GoogleFonts.latoTextTheme(),
                 appBarTheme: AppBarTheme(
+                    iconTheme: IconThemeData(color: Colors.white),
                     backgroundColor: Color(0xff5E1675),
                     titleTextStyle:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 24))),

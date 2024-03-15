@@ -81,7 +81,7 @@ class ResetPage extends StatelessWidget {
                         TextButton(
                           onPressed: () {
                             resetC.emailC.clear();
-                            Get.toNamed(RouteNames.register);
+                            Get.toNamed(RouteNames.login);
                           },
                           child: Text(
                             'LOGIN',

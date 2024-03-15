@@ -5,6 +5,7 @@ import 'package:frentalk_app/routes/name_route.dart';
 import 'package:frentalk_app/utils/dialog_dua.dart';
 import 'package:frentalk_app/utils/dialog_satu.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class AuthController extends GetxController {
   FirebaseAuth authn = FirebaseAuth.instance;
@@ -20,6 +21,14 @@ class AuthController extends GetxController {
           password: password,
         );
         if (myUser.user!.emailVerified == true) {
+          String? uId = authn.currentUser!.uid;
+          final box = GetStorage();
+          if (box.read('userId') != null) {
+            box.erase();
+            box.write('userId', uId);
+          } else {
+            box.write('userId', uId);
+          }
           loginC.emailC.clear();
           loginC.passC.clear();
           Get.offAllNamed(RouteNames.home);
@@ -82,6 +91,7 @@ class AuthController extends GetxController {
                 'Verifikasi akun anda, kami sudah mengirim email ke akun $email',
             textConfirm: 'OK',
             onConfirm: () async {
+              print(myUser);
               await myUser.user!.sendEmailVerification();
               signinC.emailC.clear();
               signinC.passC.clear();

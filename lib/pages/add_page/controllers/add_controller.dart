@@ -1,10 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:frentalk_app/global_controllers/auth_controller.dart';
 import 'package:get/get.dart';
 import 'package:frentalk_app/utils/dialog_satu.dart';
+import 'package:get_storage/get_storage.dart';
 
 class AddUserController extends GetxController {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final authC = Get.find<AuthController>();
 
   late TextEditingController nameC;
   late TextEditingController telpC;
@@ -29,6 +32,13 @@ class AddUserController extends GetxController {
   void addUser(String name, String telp, String status) async {
     CollectionReference users = FirebaseFirestore.instance.collection('Users');
     DateTime dateNow = DateTime.now();
+    String uId = '';
+    final box = GetStorage();
+    if (box.read('userId') != null) {
+      var data = box.read('userId');
+      uId = data;
+    }
+
     if (name.isNotEmpty && telp.isNotEmpty && status.isNotEmpty) {
       try {
         await users.add({
@@ -36,6 +46,7 @@ class AddUserController extends GetxController {
           'telp': telp,
           'status': status,
           'date': dateNow,
+          'userId': uId
         });
         Get.dialog(CustomDialogSatu(
           title: 'PEMBERITAHUAN',

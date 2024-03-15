@@ -1,6 +1,7 @@
 import 'package:frentalk_app/pages/add_page/view/add_page.dart';
 import 'package:frentalk_app/pages/edit_page/view/edit_page.dart';
 import 'package:frentalk_app/pages/home_page/view/home_page.dart';
+import 'package:frentalk_app/pages/image_page/view/image_page.dart';
 import 'package:frentalk_app/pages/login_page.dart/view/login_page.dart';
 import 'package:frentalk_app/pages/register_page/view/register_page.dart';
 import 'package:frentalk_app/pages/reset_page/view/reset_page.dart';
@@ -32,6 +33,10 @@ class AppRoutes {
     GetPage(
       name: RouteNames.editUser,
       page: () => EditUserPage(),
+    ),
+    GetPage(
+      name: RouteNames.imagepick,
+      page: () => ImagePage(),
     ),
   ];
 }

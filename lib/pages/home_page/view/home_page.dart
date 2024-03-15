@@ -19,6 +19,11 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
               onPressed: () {
+                Get.toNamed(RouteNames.imagepick);
+              },
+              icon: Icon(Icons.image)),
+          IconButton(
+              onPressed: () {
                 authC.logout();
               },
               icon: Icon(Icons.logout))
